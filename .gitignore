@@ -9,10 +9,6 @@ build/
 .gradle/
 build.gradle.kts.swp
 settings.gradle.kts.swp
-gradlew
-gradlew.bat
-gradle/wrapper/gradle-wrapper.properties
-gradle/wrapper/gradle-wrapper.jar
 
 # Android Studio / IntelliJ files
 .idea/
