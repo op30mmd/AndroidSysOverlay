@@ -1,4 +1,4 @@
-package com.example.rootoverlay.stats
+package io.github.androidsysoverlay.stats
 
 data class CpuTimes(val idle: Long, val total: Long)
 

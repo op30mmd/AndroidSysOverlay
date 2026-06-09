@@ -1,4 +1,4 @@
-package com.example.rootoverlay.stats
+package io.github.androidsysoverlay.stats
 
 object GpuReader {
     val GPU_BUSY_NODES = listOf(

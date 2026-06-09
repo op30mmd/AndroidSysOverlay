@@ -1,4 +1,4 @@
-package com.example.rootoverlay.overlay
+package io.github.androidsysoverlay.overlay
 
 import android.content.Context
 import android.graphics.Color
@@ -9,10 +9,10 @@ import android.view.MotionEvent
 import android.view.WindowManager
 import android.widget.LinearLayout
 import androidx.core.graphics.ColorUtils
-import com.example.rootoverlay.data.FontWeightOption
-import com.example.rootoverlay.data.Metric
-import com.example.rootoverlay.data.OverlaySettings
-import com.example.rootoverlay.stats.StatsSnapshot
+import io.github.androidsysoverlay.data.FontWeightOption
+import io.github.androidsysoverlay.data.Metric
+import io.github.androidsysoverlay.data.OverlaySettings
+import io.github.androidsysoverlay.stats.StatsSnapshot
 import kotlin.math.roundToInt
 
 class OverlayView(context: Context, private val onPositionChanged: (Int, Int) -> Unit) : LinearLayout(context) {

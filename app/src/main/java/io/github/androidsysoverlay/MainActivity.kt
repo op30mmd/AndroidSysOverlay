@@ -1,4 +1,4 @@
-package com.example.rootoverlay
+package io.github.androidsysoverlay
 
 import android.Manifest
 import android.content.Intent
@@ -25,9 +25,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.rootoverlay.data.*
-import com.example.rootoverlay.overlay.OverlayService
-import com.example.rootoverlay.stats.RootShell
+import io.github.androidsysoverlay.data.*
+import io.github.androidsysoverlay.overlay.OverlayService
+import io.github.androidsysoverlay.stats.RootShell
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {

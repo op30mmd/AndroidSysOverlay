@@ -1,4 +1,4 @@
-package com.example.rootoverlay.data
+package io.github.androidsysoverlay.data
 
 import android.content.Context
 import androidx.datastore.preferences.core.*

@@ -1,4 +1,4 @@
-package com.example.rootoverlay.stats
+package io.github.androidsysoverlay.stats
 
 data class StatsSnapshot(
     val cpuPercent: Float,
