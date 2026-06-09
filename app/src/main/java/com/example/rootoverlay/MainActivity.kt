@@ -11,9 +11,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -22,9 +25,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.rootoverlay.data.Metric
-import com.example.rootoverlay.data.OverlaySettings
-import com.example.rootoverlay.data.SettingsRepository
+import com.example.rootoverlay.data.*
 import com.example.rootoverlay.overlay.OverlayService
 import com.example.rootoverlay.stats.RootShell
 import kotlinx.coroutines.launch
@@ -167,6 +168,112 @@ fun SettingsScreen(repository: SettingsRepository) {
                 }
             )
 
+            Spacer(modifier = Modifier.height(16.dp))
+            Text("Font Visibility", style = MaterialTheme.typography.titleLarge)
+
+            EnumDropdownSetting(
+                label = "Font Weight",
+                selected = settings.fontWeight,
+                options = FontWeightOption.entries,
+                onSelected = { newValue ->
+                    scope.launch { repository.updateSettings(settings.copy(fontWeight = newValue)) }
+                }
+            )
+
+            ToggleSetting(
+                label = "Text Outline",
+                checked = settings.textOutline,
+                onCheckedChange = { scope.launch { repository.updateSettings(settings.copy(textOutline = it)) } }
+            )
+
+            if (settings.textOutline) {
+                SliderSetting(
+                    label = "Outline Width (${settings.outlineWidthDp}dp)",
+                    value = settings.outlineWidthDp,
+                    range = 0.5f..5.0f,
+                    onValueChangeFinished = { newValue ->
+                        scope.launch { repository.updateSettings(settings.copy(outlineWidthDp = newValue)) }
+                    }
+                )
+                ColorSetting(
+                    label = "Outline Color",
+                    value = settings.outlineColor,
+                    onValueChange = { newValue ->
+                        scope.launch { repository.updateSettings(settings.copy(outlineColor = newValue)) }
+                    }
+                )
+            }
+
+            ToggleSetting(
+                label = "Text Shadow",
+                checked = settings.textShadow,
+                onCheckedChange = { scope.launch { repository.updateSettings(settings.copy(textShadow = it)) } }
+            )
+
+            ToggleSetting(
+                label = "Background Scrim",
+                checked = settings.backgroundScrim,
+                onCheckedChange = { scope.launch { repository.updateSettings(settings.copy(backgroundScrim = it)) } }
+            )
+
+            if (settings.backgroundScrim) {
+                ToggleSetting(
+                    label = "Auto Contrast (Black/White text)",
+                    checked = settings.minContrastAuto,
+                    onCheckedChange = { scope.launch { repository.updateSettings(settings.copy(minContrastAuto = it)) } }
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+            Text("Theming", style = MaterialTheme.typography.titleLarge)
+
+            EnumDropdownSetting(
+                label = "Theme Mode",
+                selected = settings.themeMode,
+                options = ThemeMode.entries,
+                onSelected = { newValue ->
+                    scope.launch { repository.updateSettings(settings.copy(themeMode = newValue)) }
+                }
+            )
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                ToggleSetting(
+                    label = "Use Material You colors",
+                    checked = settings.useDynamicColor,
+                    onCheckedChange = { scope.launch { repository.updateSettings(settings.copy(useDynamicColor = it)) } }
+                )
+            }
+
+            OptionalColorSetting(
+                label = "Accent Override",
+                value = settings.accentOverride,
+                onValueChange = { newValue ->
+                    scope.launch { repository.updateSettings(settings.copy(accentOverride = newValue)) }
+                }
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+            Text("Behavior", style = MaterialTheme.typography.titleLarge)
+
+            ToggleSetting(
+                label = "Lock Position",
+                checked = settings.lockPosition,
+                onCheckedChange = { scope.launch { repository.updateSettings(settings.copy(lockPosition = it)) } }
+            )
+
+            ToggleSetting(
+                label = "Pass Touches Through",
+                checked = settings.passThroughTouches,
+                onCheckedChange = { scope.launch { repository.updateSettings(settings.copy(passThroughTouches = it)) } }
+            )
+            if (settings.passThroughTouches) {
+                Text(
+                    "Warning: You won't be able to drag the overlay while this is enabled. Use the persistent notification to disable if you get stuck.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
+
             Spacer(modifier = Modifier.height(24.dp))
 
             Button(
@@ -195,11 +302,6 @@ fun SettingsScreen(repository: SettingsRepository) {
 
             Spacer(modifier = Modifier.height(32.dp))
         }
-    }
-
-    // Refresh overlay permission status when returning to app
-    LaunchedEffect(Unit) {
-        // In a real app we'd use a LifecycleEventObserver
     }
 }
 
@@ -238,5 +340,101 @@ fun SliderSetting(label: String, value: Float, range: ClosedFloatingPointRange<F
             onValueChangeFinished = { onValueChangeFinished(sliderValue) },
             valueRange = range
         )
+    }
+}
+
+@Composable
+fun ToggleSetting(label: String, checked: Boolean, onCheckedChange: (Boolean) -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(label)
+        Switch(checked = checked, onCheckedChange = onCheckedChange)
+    }
+}
+
+@Composable
+fun <T : Enum<T>> EnumDropdownSetting(label: String, selected: T, options: List<T>, onSelected: (T) -> Unit) {
+    var expanded by remember { mutableStateOf(false) }
+
+    Column(modifier = Modifier.padding(vertical = 8.dp)) {
+        Text(label, style = MaterialTheme.typography.bodySmall)
+        Box {
+            OutlinedTextField(
+                value = selected.name,
+                onValueChange = {},
+                readOnly = true,
+                modifier = Modifier.fillMaxWidth(),
+                trailingIcon = {
+                    IconButton(onClick = { expanded = true }) {
+                        Icon(Icons.Default.ArrowDropDown, contentDescription = null)
+                    }
+                }
+            )
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                options.forEach { option ->
+                    DropdownMenuItem(
+                        text = { Text(option.name) },
+                        onClick = {
+                            onSelected(option)
+                            expanded = false
+                        }
+                    )
+                }
+            }
+            // Overlay an invisible box to handle clicks on the whole field
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .clickable { expanded = true }
+            )
+        }
+    }
+}
+
+@Composable
+fun ColorSetting(label: String, value: Long, onValueChange: (Long) -> Unit) {
+    var textValue by remember(value) { mutableStateOf(String.format("%08X", value)) }
+
+    Column(modifier = Modifier.padding(vertical = 8.dp)) {
+        if (label.isNotEmpty()) {
+            Text(label, style = MaterialTheme.typography.bodySmall)
+        }
+        OutlinedTextField(
+            value = textValue,
+            onValueChange = {
+                textValue = it
+                try {
+                    val newValue = it.toLong(16)
+                    onValueChange(newValue)
+                } catch (e: Exception) {}
+            },
+            modifier = Modifier.fillMaxWidth(),
+            prefix = { Text("0x") }
+        )
+    }
+}
+
+@Composable
+fun OptionalColorSetting(label: String, value: Long?, onValueChange: (Long?) -> Unit) {
+    Column(modifier = Modifier.padding(vertical = 8.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Checkbox(checked = value != null, onCheckedChange = {
+                if (!it) onValueChange(null)
+                else onValueChange(0xFF90CAF9L)
+            })
+            Text(label)
+        }
+        if (value != null) {
+            ColorSetting(label = "", value = value, onValueChange = onValueChange)
+        }
     }
 }
