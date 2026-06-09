@@ -14,12 +14,12 @@
         android:label="Root Overlay"
         android:roundIcon="@android:drawable/ic_menu_info_details"
         android:supportsRtl="true"
-        android:theme="@android:style/Theme.DeviceDefault.DayNight">
+        android:theme="@style/Theme.RootOverlay">
 
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@android:style/Theme.DeviceDefault.DayNight">
+            android:theme="@style/Theme.RootOverlay">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

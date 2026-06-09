@@ -61,6 +61,8 @@ dependencies {
     implementation(composeBom)
     androidTestImplementation(composeBom)
     implementation(libs.bundles.compose)
+    implementation(libs.core.splashscreen)
+    implementation(libs.material)
 
     // Root & Storage
     implementation(libs.libsu.core)
