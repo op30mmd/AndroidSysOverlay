@@ -1,4 +1,4 @@
-package com.example.rootoverlay.overlay
+package io.github.androidsysoverlay.overlay
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -16,10 +16,10 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
-import com.example.rootoverlay.data.OverlaySettings
-import com.example.rootoverlay.data.SettingsRepository
-import com.example.rootoverlay.data.ThemeMode
-import com.example.rootoverlay.stats.StatsCollector
+import io.github.androidsysoverlay.data.OverlaySettings
+import io.github.androidsysoverlay.data.SettingsRepository
+import io.github.androidsysoverlay.data.ThemeMode
+import io.github.androidsysoverlay.stats.StatsCollector
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
@@ -175,7 +175,7 @@ class OverlayService : LifecycleService() {
         }
 
         return NotificationCompat.Builder(this, channelId)
-            .setContentTitle("Root Overlay Running")
+            .setContentTitle("AndroidSysOverlay Running")
             .setSmallIcon(android.R.drawable.ic_menu_info_details)
             .build()
     }

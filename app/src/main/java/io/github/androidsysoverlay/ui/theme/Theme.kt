@@ -1,4 +1,4 @@
-package com.example.rootoverlay.ui.theme
+package io.github.androidsysoverlay.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -18,7 +18,7 @@ private val FallbackDark = darkColorScheme(
 )
 
 @Composable
-fun RootOverlayTheme(
+fun AndroidSysOverlayTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit,

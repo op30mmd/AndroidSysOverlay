@@ -1,4 +1,4 @@
-package com.example.rootoverlay.overlay
+package io.github.androidsysoverlay.overlay
 
 import android.content.Context
 import android.graphics.Canvas

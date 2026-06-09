@@ -11,15 +11,15 @@
         android:name=".App"
         android:allowBackup="true"
         android:icon="@android:drawable/ic_menu_info_details"
-        android:label="Root Overlay"
+        android:label="AndroidSysOverlay"
         android:roundIcon="@android:drawable/ic_menu_info_details"
         android:supportsRtl="true"
-        android:theme="@style/Theme.RootOverlay">
+        android:theme="@style/Theme.AndroidSysOverlay">
 
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.RootOverlay">
+            android:theme="@style/Theme.AndroidSysOverlay">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

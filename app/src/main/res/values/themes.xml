@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.RootOverlay" parent="Theme.Material3.DynamicColors.DayNight">
+    <style name="Theme.AndroidSysOverlay" parent="Theme.Material3.DynamicColors.DayNight">
         <item name="android:windowSplashScreenBackground">?attr/colorSurface</item>
     </style>
 </resources>
