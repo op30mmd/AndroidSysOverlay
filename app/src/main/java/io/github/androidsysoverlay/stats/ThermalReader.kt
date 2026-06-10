@@ -1,4 +1,4 @@
-package com.example.rootoverlay.stats
+package io.github.androidsysoverlay.stats
 
 object ThermalReader {
     fun normalizeTemp(raw: Long): Float = when {

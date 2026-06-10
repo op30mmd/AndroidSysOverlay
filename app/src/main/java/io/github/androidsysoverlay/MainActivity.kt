@@ -1,4 +1,4 @@
-package com.example.rootoverlay
+package io.github.androidsysoverlay
 
 import android.Manifest
 import android.content.Intent
@@ -28,10 +28,10 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.rootoverlay.data.*
-import com.example.rootoverlay.ui.theme.RootOverlayTheme
-import com.example.rootoverlay.overlay.OverlayService
-import com.example.rootoverlay.stats.RootShell
+import io.github.androidsysoverlay.data.*
+import io.github.androidsysoverlay.ui.theme.AndroidSysOverlayTheme
+import io.github.androidsysoverlay.overlay.OverlayService
+import io.github.androidsysoverlay.stats.RootShell
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
         settingsRepository = SettingsRepository(this)
         setContent {
             val settings by settingsRepository.settingsFlow.collectAsStateWithLifecycle(initialValue = OverlaySettings())
-            RootOverlayTheme(
+            AndroidSysOverlayTheme(
                 darkTheme = when (settings.themeMode) {
                     ThemeMode.LIGHT -> false
                     ThemeMode.DARK -> true
@@ -89,7 +89,7 @@ fun SettingsScreen(repository: SettingsRepository) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Root Overlay Settings") }
+                title = { Text("AndroidSysOverlay Settings") }
             )
         }
     ) { padding ->

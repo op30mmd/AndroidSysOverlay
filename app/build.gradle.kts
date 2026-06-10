@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.rootoverlay"
+    namespace = "io.github.androidsysoverlay"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.rootoverlay"
+        applicationId = "io.github.androidsysoverlay"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

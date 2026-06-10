@@ -1,4 +1,4 @@
-package com.example.rootoverlay.stats
+package io.github.androidsysoverlay.stats
 
 import com.topjohnwu.superuser.Shell
 

@@ -1,10 +1,10 @@
-package com.example.rootoverlay.boot
+package io.github.androidsysoverlay.boot
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import androidx.core.content.ContextCompat
-import com.example.rootoverlay.overlay.OverlayService
+import io.github.androidsysoverlay.overlay.OverlayService
 
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {

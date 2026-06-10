@@ -1,4 +1,4 @@
-package com.example.rootoverlay
+package io.github.androidsysoverlay
 
 import android.app.Application
 import com.topjohnwu.superuser.Shell

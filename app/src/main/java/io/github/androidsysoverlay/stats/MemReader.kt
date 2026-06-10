@@ -1,4 +1,4 @@
-package com.example.rootoverlay.stats
+package io.github.androidsysoverlay.stats
 
 object MemReader {
     fun parseMeminfo(raw: String): Map<String, Long> =

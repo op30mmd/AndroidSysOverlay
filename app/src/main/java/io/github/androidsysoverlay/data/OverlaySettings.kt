@@ -1,4 +1,4 @@
-package com.example.rootoverlay.data
+package io.github.androidsysoverlay.data
 
 enum class Metric { CPU, RAM, SWAP, GPU, CPU_TEMP, BATTERY_TEMP, DISCHARGE }
 

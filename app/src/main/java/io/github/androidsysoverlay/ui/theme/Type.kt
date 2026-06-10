@@ -1,4 +1,4 @@
-package com.example.rootoverlay.ui.theme
+package io.github.androidsysoverlay.ui.theme
 
 import androidx.compose.material3.Typography
 
