@@ -302,6 +302,12 @@ fun SettingsScreen(repository: SettingsRepository) {
                 Text("Behavior", style = MaterialTheme.typography.titleLarge)
 
                 ToggleSetting(
+                    label = "Start on Boot",
+                    checked = settings.startOnBoot,
+                    onCheckedChange = { scope.launch { repository.updateSettings(settings.copy(startOnBoot = it)) } }
+                )
+
+                ToggleSetting(
                     label = "Lock Position",
                     checked = settings.lockPosition,
                     onCheckedChange = { scope.launch { repository.updateSettings(settings.copy(lockPosition = it)) } }
